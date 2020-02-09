@@ -31,6 +31,8 @@ mongoose.connection.on('connected', () => {
   console.log('Mongoose is connected')
 })
 
+mongoose.set('useFindAndModify', false);
+
 app.listen(port, '0.0.0.0', () => {
   console.log("API started")
 })

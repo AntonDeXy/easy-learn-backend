@@ -40,13 +40,15 @@ router.get(
 
 // router.get('/categories', categoriesControllers.all)
 
+router.get('/categories/', categoriesControllers.getAll)
+
 router.get('/categories/:authorId', categoriesControllers.categoriesByAuthor)
 
 router.post('/categories', categoriesControllers.create)
 
 router.put('/categories/:id', categoriesControllers.edit)
 
-router.delete('/articles/:id', categoriesControllers.remove)
+router.delete('/categories/:id', categoriesControllers.remove)
 
 // items
 

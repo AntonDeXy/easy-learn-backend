@@ -11,27 +11,27 @@ exports.categoriesByAuthor = (req, res) => {
   }))
 }
 
-// exports.all = (req, res) => {
-//   categorySchema
-//   .find({})
-//   .populate('items')
-//   .populate('authorId')
-//   .exec((err, doc)=> {
-//     if (err) {
-//       console.log(err)
-//       return res.sendStatus(500)
-//     }
-//     res.send(doc)
-//   })
-// }
+exports.getAll = (req, res) => {
+  categorySchema
+  .find({})
+  .populate('items')
+  .populate('authorId')
+  .exec((err, doc)=> {
+    if (err) {
+      console.log(err)
+      return res.sendStatus(500)
+    }
+    res.send(doc)
+  })
+}
 
 exports.create = (req, res) => {
   request = req.body
   const category = new categorySchema({
     _id: new mongoose.Types.ObjectId(),
     title: request.title,
-    items: request.items,
-    authorId: request.translate,
+    items: request.items || [],
+    authorId: request.authorId,
     date: new Date(),
   })
   category
@@ -57,6 +57,6 @@ exports.remove = (req, res) => {
       console.log(err)
       return res.sendStatus(500)
     }
-    res.send(result)
+    res.sendStatus(200)
   })
 }

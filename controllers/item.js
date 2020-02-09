@@ -1,3 +1,4 @@
+const categorySchema = require('../models/categorySchema')
 const itemsSchema = require('../models/itemsSchema')
 const mongoose = require('mongoose') 
 
@@ -5,16 +6,25 @@ exports.create = (req, res) => {
   request = req.body
   const item = new itemsSchema({
     _id: new mongoose.Types.ObjectId(),
-    title: request.title,
     word: request.word,
     translate: request.translate,
     date: new Date(),
   })
   item
     .save()
-    .then(result => {console.log(result)})
-    .catch(err => console.log(err))
-    res.sendStatus(200)
+    .then(result => {
+      categorySchema
+      .findOneAndUpdate(
+        {_id: req.body.categoryId},
+        {"$push": {items: result.id}}
+      )
+      .exec((err,doc) => {
+        if (err) return res.send(err)
+        res.sendStatus(200)
+      })
+      // .catch(err => console.log(err))
+    })
+    // .catch(err => console.log(err))
 }
 
 exports.edit = (req, res) => {
