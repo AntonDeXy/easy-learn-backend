@@ -2,6 +2,7 @@ const express = require('express')
 const passport = require('../middleware/passport')
 const categoriesControllers = require('../controllers/category')
 const itemsControllers = require('../controllers/item')
+const usersControllers = require('../controllers/users')
 const jwt = require('jsonwebtoken')
 
 const authRoutes = require('./auth')
@@ -13,7 +14,7 @@ router.get('/api/me', (req, res) => {
     if (err || !user) {
       console.log(err)
       console.log(user)
-      return res.status(400).json({ message })
+      return res.status(400).json(message)
     }
 
     req.login(user, { session: false }, (err) => {
@@ -49,6 +50,9 @@ router.post('/categories', categoriesControllers.create)
 router.put('/categories/:id', categoriesControllers.edit)
 
 router.delete('/categories/:id', categoriesControllers.remove)
+
+router.post('/addCategoryToProfile', usersControllers.addNewListToProfile)
+router.post('/removeObjectFromProfile', usersControllers.removeObjectFromProfile)
 
 // items
 

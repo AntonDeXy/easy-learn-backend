@@ -2,20 +2,24 @@ const categorySchema = require('../models/categorySchema')
 const mongoose = require('mongoose') 
 
 exports.categoriesByAuthor = (req, res) => {
-  categorySchema.find({author: req.params.authorId},((err, doc)=> {
+  categorySchema
+  .find({authorId: req.params.authorId})
+  .populate('items')
+  // .populate('authorId')
+  .exec((err, doc)=> {
     if (err) {
       console.log(err)
       return res.sendStatus(500)
     }
     res.send(doc)
-  }))
+  })
 }
 
 exports.getAll = (req, res) => {
   categorySchema
   .find({})
   .populate('items')
-  .populate('authorId')
+  // .populate('authorId')
   .exec((err, doc)=> {
     if (err) {
       console.log(err)

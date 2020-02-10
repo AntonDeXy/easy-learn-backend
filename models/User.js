@@ -36,7 +36,8 @@ const UserSchema = new Schema(
     imgUrl: {
       type: String,
       default: undefined
-    }
+    },
+    addedCategories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category' }]
   },
   { collection: 'users' }
 )

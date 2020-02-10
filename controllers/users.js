@@ -15,4 +15,26 @@ exports.changeInfo = (req, res) => {
   })
 }
 
+exports.removeObjectFromProfile = (req, res) => {
+  usersSchema
+    .findByIdAndUpdate(
+      {_id: req.body.userId},
+      {'$pull': {addedCategories: req.body.categoryId}}
+    )
+    .exec((err, doc) => {
+      if (err) return res.send(err)
+      res.sendStatus(200)
+    })
+}
 
+exports.addNewListToProfile = (req, res) => {
+  usersSchema
+    .findOneAndUpdate(
+      {_id: req.body.userId},
+      {'$push': {addedCategories: req.body.categoryId}}
+    )
+    .exec((err, doc) => {
+      if (err) return res.send(err)
+      res.sendStatus(200)
+    })
+}
