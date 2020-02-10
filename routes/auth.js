@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
     if (err || !user) {
       console.log(err)
       console.log(user)
-      return res.status(400).json({ message })
+      return res.status(400).json(message)
     }
 
     req.login(user, { session: false }, (err) => {
