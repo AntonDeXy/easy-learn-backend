@@ -14,7 +14,8 @@ passport.use('local-signup', new LocalStrategy({
   passReqToCallback: true
 }, (req, email, password,done) => {
   process.nextTick(() => {
-    User.findOne({ 'email': email }, (err, user) => {
+    User.findOne({ 'email': email })
+    .exec((err, user) => {
       if (user) {
         return done(null, false, { message: 'This email is already registered.' })
       } else {
@@ -41,6 +42,7 @@ passport.use( 'local', new LocalStrategy({
   try {
     const user = await User.findOne({ email })
 
+
     if (!user) {
       return done(null, user, { message: 'No account assosiated with this email found' })
     }
@@ -63,7 +65,9 @@ passport.use('jwt', new JWTStrategy({
   // expiresIn: '1d',
   secretOrKey: '9f34ur783f39'
 }, (jwtPayload, done) => {
-  return User.findOne({_id: jwtPayload._id})
+  return User
+    .findOne({_id: jwtPayload._id})
+    .populate({ path: 'addedCategories', populate: {path: 'items'}})
     .then(user => {
       return done(null, user)
     })
