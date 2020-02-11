@@ -23,7 +23,7 @@ router.get('/api/me', (req, res) => {
       }
 // jwt secret from .env
       const token = jwt.sign(user.toJSON(), '9f34ur783f39', {expiresIn: '1d'})
-      console.log(token)
+      // console.log(token)
       return res.json({ token, user })
     })
   }) (req, res)
