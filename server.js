@@ -23,7 +23,7 @@ app.use(router)
 // require('./auth/src/index')
 
 mongoose.connect(url, {
-  useUnifiedTopology: true,
+  // useUnifiedTopology: true,
   useNewUrlParser: true
 }).catch(err => console.log(err))
 
@@ -31,7 +31,7 @@ mongoose.connection.on('connected', () => {
   console.log('Mongoose is connected')
 })
 
-mongoose.set('useFindAndModify', false);
+// mongoose.set('useFindAndModify', false);
 
 app.listen(port, '0.0.0.0', () => {
   console.log("API started")
