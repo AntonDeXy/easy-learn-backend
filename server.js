@@ -5,7 +5,7 @@ var ObjectID = require('mongodb').ObjectId
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose') 
-const url = 'mongodb+srv://podolyananton:1gdy54ff@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
+const url = 'mongodb+srv://podolyananton:bslukY3JgdGVRrDv@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
 const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
 const articlesControllers = require('./controllers/category')
