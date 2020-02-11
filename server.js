@@ -23,7 +23,7 @@ app.use(router)
 // require('./auth/src/index')
 
 mongoose.connect(url, {
-  // useUnifiedTopology: true,
+  useUnifiedTopology: true,
   useNewUrlParser: true
 }).catch(err => console.log(err))
 
