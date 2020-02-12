@@ -5,8 +5,10 @@ var ObjectID = require('mongodb').ObjectId
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose') 
-const url = process.env.MONGODB_URI || 'mongodb://antonDexy:1gdy54ff@ds163517.mlab.com:63517/heroku_13pcnz63'
-// const url = 'mongodb+srv://podolyananton:bslukY3JgdGVRrDv@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
+// on heroku uncomment next line
+// const url = process.env.MONGODB_URI || 'mongodb://antonDexy:1gdy54ff@ds163517.mlab.com:63517/heroku_13pcnz63'
+
+const url = 'mongodb+srv://podolyananton:bslukY3JgdGVRrDv@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
 const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
 const articlesControllers = require('./controllers/category')
@@ -22,7 +24,6 @@ app.use(cookieParser())
 app.use(router)
 
 // require('./auth/src/index')
-
 mongoose.connect(url, {
   useUnifiedTopology: true,
   useNewUrlParser: true
