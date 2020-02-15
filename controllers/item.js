@@ -46,3 +46,13 @@ exports.remove = (req, res) => {
     res.send(result)
   })
 }
+
+exports.removeMany = (req, res) => {
+  itemsSchema.deleteMany({_id: {$in: req.body.ids}}, (err, result) => {
+    if (err) {
+      console.log(err)
+      return res.sendStatus(500)
+    }
+    res.send(result)
+  })
+}

@@ -62,6 +62,8 @@ router.put('/items/:id', itemsControllers.edit)
 
 router.delete('/items/:id', itemsControllers.remove)
 
+router.post('/itemsRemoveMany', itemsControllers.removeMany)
+
 router.use('/', authRoutes)
 
 module.exports = router
