@@ -3,6 +3,7 @@ const passport = require('../middleware/passport')
 const categoriesControllers = require('../controllers/category')
 const itemsControllers = require('../controllers/item')
 const usersControllers = require('../controllers/users')
+const notesControllers = require('../controllers/note')
 const jwt = require('jsonwebtoken')
 
 const authRoutes = require('./auth')
@@ -63,6 +64,16 @@ router.put('/items/:id', itemsControllers.edit)
 router.delete('/items/:id', itemsControllers.remove)
 
 router.post('/itemsRemoveMany', itemsControllers.removeMany)
+
+// notes
+
+router.get('/notes/:authorId', notesControllers.notesByAuthor)
+
+router.post('/notes', notesControllers.create)
+
+router.put('/notes/:id', notesControllers.edit)
+
+router.delete('/notes/:id', notesControllers.remove)
 
 router.use('/', authRoutes)
 
