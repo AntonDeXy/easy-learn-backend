@@ -28,7 +28,7 @@ exports.create = (req, res) => {
 }
 
 exports.edit = (req, res) => {
-  itemsSchema.updateMany({ _id: req.params.id}, { $set: req.body.newData }, (err, result) => {
+  itemsSchema.updateMany({ _id: req.params.id}, { $set: req.body }, (err, result) => {
     if (err) {
       console.log(err)
       return res.sendStatus(500)
