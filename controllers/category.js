@@ -5,7 +5,6 @@ exports.categoriesByAuthor = (req, res) => {
   categorySchema
   .find({authorId: req.params.authorId})
   .populate('items')
-  // .populate('authorId')
   .exec((err, doc)=> {
     if (err) {
       console.log(err)
@@ -46,7 +45,7 @@ exports.create = (req, res) => {
 }
 
 exports.edit = (req, res) => {
-  categorySchema.updateMany({ _id: req.params.id}, { $set: req.body.newData }, (err, result) => {
+  categorySchema.updateMany({ _id: req.params.id}, { $set: req.body }, (err, result) => {
     if (err) {
       console.log(err)
       return res.sendStatus(500)

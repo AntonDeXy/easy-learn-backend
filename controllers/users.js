@@ -1,24 +1,10 @@
-const usersSchema = require('../models/User')
+const usersSchema = require('../models/UserObj')
 const mongoose = require('mongoose') 
-
-const passportJWT = require('passport-jwt')
-const JWTStrategy = passportJWT.Strategy
-const ExtractJWT = passportJWT.ExtractJwt
-
-exports.changeInfo = (req, res) => {
-  usersSchema.updateMany({ _id: req.params.id}, { nickname: req.body.article.nickname}, (err, result) => {
-    if (err) {
-      console.log(err)
-      return res.sendStatus(500)
-    }
-    res.send(result)
-  })
-}
 
 exports.removeObjectFromProfile = (req, res) => {
   usersSchema
     .findByIdAndUpdate(
-      {_id: req.body.userId},
+      {userId: req.params.userId},
       {'$pull': {addedCategories: req.body.categoryId}}
     )
     .exec((err, doc) => {
@@ -27,14 +13,40 @@ exports.removeObjectFromProfile = (req, res) => {
     })
 }
 
+exports.createProfile = (req, res) => {
+  const profile = new usersSchema({
+    userId: req.body.userIdFromAuth0,
+  })
+  profile
+    .save()
+    .then(result => res.send(result))
+    .catch(err => res.send(err))
+    // .exec((err, doc) => {
+    //   if (err) return res.send(err)
+    //   res.sendStatus(200)
+    //   res.send(doc)
+    // })
+  }
+
 exports.addNewListToProfile = (req, res) => {
   usersSchema
     .findOneAndUpdate(
-      {_id: req.body.userId},
+      {userId: req.params.userId},
       {'$push': {addedCategories: req.body.categoryId}}
     )
     .exec((err, doc) => {
       if (err) return res.send(err)
       res.sendStatus(200)
+    })
+}
+
+exports.getProfile = (req, res) => {
+  usersSchema
+    .findOne(
+      {userId: req.params.userId}
+    )
+    .exec((err, doc) => {
+      if (err) return res.send(err)
+      res.send(doc)
     })
 }

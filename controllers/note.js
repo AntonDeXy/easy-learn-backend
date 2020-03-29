@@ -24,7 +24,7 @@ exports.create = (req, res) => {
   })
   note
     .save()
-    .then(result => {console.log(result)})
+    .then(result => console.log(result))
     .catch(err => console.log(err))
     res.sendStatus(200)
 }

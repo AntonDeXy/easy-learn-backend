@@ -7,23 +7,46 @@ const cors = require('cors')
 const mongoose = require('mongoose') 
 // on heroku uncomment next line
 // const url = process.env.MONGODB_URI || 'mongodb://antonDexy:1gdy54ff@ds163517.mlab.com:63517/heroku_13pcnz63'
-
 const url = 'mongodb+srv://podolyananton:bslukY3JgdGVRrDv@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
 const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
 const articlesControllers = require('./controllers/category')
 let port = process.env.PORT || 5001
 const router = require('./routes/router')
-
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 // app.use(bodyParser.json())
-app.use(cors())
-
+// app.use(cors())
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(router)
 
-// require('./auth/src/index')
+const authConfig = {
+  domain: "dev-iy8j1k6d.auth0.com",
+  audience: "https://dev-iy8j1k6d.auth0.com/api/v2/"
+}
+
+const checkJwt = jwt({
+  secret: jwksRsa.expressJwtSecret({
+    cache: true,
+    rateLimit: true,
+    jwksRequestsPerMinute: 5,
+    jwksUri: `https://${authConfig.domain}/.well-known/jwks.json`
+  }),
+
+  audience: authConfig.audience,
+  issuer: `https://${authConfig.domain}/`,
+  algorithm: ["RS256"]
+});
+
+app.get("/api/external", checkJwt, (req, res) => {
+  res.send({
+    msg: "Your Access Token was successfully validated!"
+  })
+})
+
 mongoose.connect(url, {
   useUnifiedTopology: true,
   useNewUrlParser: true
