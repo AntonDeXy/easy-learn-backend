@@ -14,6 +14,22 @@ exports.categoriesByAuthor = (req, res) => {
   })
 }
 
+exports.categoryById = (req, res) => {
+  categorySchema
+  .find({_id: req.params.categoryId})
+  .populate('items')
+  .exec((err, doc)=> {
+    // if (err) {
+    //   console.log(err)
+    //   return res.jso(500)
+    // }
+    if (err || !doc) {
+      return res.json({isExist: false})
+    }
+    return res.send({isExist: true, doc})
+  })
+}
+
 exports.getAll = (req, res) => {
   categorySchema
   .find({})

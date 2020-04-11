@@ -4,10 +4,11 @@ const connection = mongoose.createConnection("mongodb+srv://antondexy:1gdy54ff@c
 
 const UserObjSchema = new Schema(
   {
+    _id: mongoose.Schema.ObjectId,
     userId: {
       type: String,
       require: true,
-      unique: true    
+      unique: true
     },
     addedCategories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category' }]
   },

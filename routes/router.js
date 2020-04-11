@@ -11,6 +11,8 @@ router.get('/categories/', categoriesControllers.getAll)
 
 router.get('/categories/:authorId', categoriesControllers.categoriesByAuthor)
 
+router.get('/categoriesById/:categoryId', categoriesControllers.categoryById)
+
 router.post('/categories', categoriesControllers.create)
 
 router.put('/categories/:id', categoriesControllers.edit)

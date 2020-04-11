@@ -3,8 +3,8 @@ const mongoose = require('mongoose')
 
 exports.removeObjectFromProfile = (req, res) => {
   usersSchema
-    .findByIdAndUpdate(
-      {userId: req.params.userId},
+    .findOneAndUpdate(
+      {userId: req.body.userId},
       {'$pull': {addedCategories: req.body.categoryId}}
     )
     .exec((err, doc) => {
@@ -31,7 +31,7 @@ exports.createProfile = (req, res) => {
 exports.addNewListToProfile = (req, res) => {
   usersSchema
     .findOneAndUpdate(
-      {userId: req.params.userId},
+      {userId: req.body.userId},
       {'$push': {addedCategories: req.body.categoryId}}
     )
     .exec((err, doc) => {
@@ -45,6 +45,12 @@ exports.getProfile = (req, res) => {
     .findOne(
       {userId: req.params.userId}
     )
+    .populate({
+      path: 'addedCategories',
+      populate: {
+        path: 'items'
+      }
+    })
     .exec((err, doc) => {
       if (err) return res.send(err)
       res.send(doc)
