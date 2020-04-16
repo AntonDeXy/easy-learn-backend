@@ -10,7 +10,7 @@ const mongoose = require('mongoose')
 const url = 'mongodb+srv://podolyananton:bslukY3JgdGVRrDv@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
 const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
-const articlesControllers = require('./controllers/category')
+const listsControllers = require('./controllers/list')
 let port = process.env.PORT || 5001
 const router = require('./routes/router')
 const jwt = require("express-jwt");

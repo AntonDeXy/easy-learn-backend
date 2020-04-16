@@ -1,5 +1,5 @@
 const express = require('express')
-const categoriesControllers = require('../controllers/category')
+const listsControllers = require('../controllers/list')
 const itemsControllers = require('../controllers/item')
 const usersControllers = require('../controllers/users')
 const notesControllers = require('../controllers/note')
@@ -7,50 +7,50 @@ const jwt = require('jsonwebtoken')
 
 const router = express.Router()
 
-router.get('/categories/', categoriesControllers.getAll)
+// router.get('/lists/', listsControllers.getAll)
 
-router.get('/categories/:authorId', categoriesControllers.categoriesByAuthor)
+router.get('/lists/by-author-id/:authorId/', listsControllers.categoriesByAuthor)
 
-router.get('/categoriesById/:categoryId', categoriesControllers.categoryById)
+router.get('/lists/by-list-id/:listId/', listsControllers.categoryById)
 
-router.post('/categories', categoriesControllers.create)
+router.post('/lists/new/', listsControllers.create)
 
-router.put('/categories/:id', categoriesControllers.edit)
+router.put('/lists/edit/:listId/', listsControllers.edit)
 
-router.delete('/categories/:id', categoriesControllers.remove)
+router.delete('/lists/remove/:listId/', listsControllers.remove)
 
-router.post('/addCategoryToProfile', usersControllers.addNewListToProfile)
+router.post('/lists/add-to-profile/', usersControllers.addNewListToProfile)
 
-router.post('/removeObjectFromProfile', usersControllers.removeObjectFromProfile)
+router.post('/lists/remove-from-profile/', usersControllers.removeObjectFromProfile)
 
 // items
 
-router.post('/items', itemsControllers.create)
+router.post('/items/new/', itemsControllers.create)
 
-router.put('/items/:id', itemsControllers.edit)
+router.put('/items/edit/:itemId/', itemsControllers.edit)
 
-router.delete('/items/:id', itemsControllers.remove)
+router.delete('/items/remove/:itemId/', itemsControllers.remove)
 
-router.post('/itemsRemoveMany', itemsControllers.removeMany)
+router.post('/items/remove-many/', itemsControllers.removeMany)
 
 // notes
 
-router.get('/notes/:authorId', notesControllers.notesByAuthor)
+router.get('/notes/:authorId/', notesControllers.notesByAuthor)
 
-router.post('/notes', notesControllers.create)
+router.post('/notes/new/', notesControllers.create)
 
-router.put('/notes/:id', notesControllers.edit)
+router.put('/notes/:noteId/', notesControllers.edit)
 
-router.delete('/notes/:id', notesControllers.remove)
+router.delete('/notes/remove/:noteId/', notesControllers.remove)
 
 // users
 
-router.get('/users/:userId', usersControllers.getProfile)
+router.get('/users/get-profile/:userId', usersControllers.getProfile)
 
-router.put('/users/:userId', usersControllers.removeObjectFromProfile)
+router.put('/users/remove-list/:userId', usersControllers.removeObjectFromProfile)
 
-router.put('/users/:userId', usersControllers.addNewListToProfile)
+router.put('/users/add-list/:userId', usersControllers.addNewListToProfile)
 
-router.post('/users', usersControllers.createProfile)
+router.post('/users/new/', usersControllers.createProfile)
 
 module.exports = router

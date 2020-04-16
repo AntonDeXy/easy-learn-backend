@@ -1,4 +1,4 @@
-const categorySchema = require('../models/categorySchema')
+const listSchema = require('../models/listSchema')
 const itemsSchema = require('../models/itemsSchema')
 const mongoose = require('mongoose') 
 
@@ -13,27 +13,27 @@ exports.create = (req, res) => {
   item
     .save()
     .then(result => {
-      categorySchema
+      listSchema
       .findOneAndUpdate(
-        {_id: req.body.categoryId},
+        {_id: req.body.listId},
         {"$push": {items: result.id}}
       )
       .exec((err,doc) => {
-        if (err) return res.send(err)
-        res.sendStatus(200)
+        if (err) {
+          return res.json({err, success: false})
+        }
+        res.json({doc, success: true})
       })
-      // .catch(err => console.log(err))
     })
-    // .catch(err => console.log(err))
 }
 
 exports.edit = (req, res) => {
   itemsSchema.updateMany({ _id: req.params.id}, { $set: req.body }, (err, result) => {
     if (err) {
       console.log(err)
-      return res.sendStatus(500)
+      return res.json({err, success: false})
     }
-    res.send(result)
+    res.json({doc: result, success: true})
   })
 }
 
@@ -41,9 +41,9 @@ exports.remove = (req, res) => {
   itemsSchema.deleteOne({_id: req.params.id}, (err, result) => {
     if (err) {
       console.log(err)
-      return res.sendStatus(500)
+      return res.json({err, success: false})
     }
-    res.send(result)
+    res.json({doc: result, success: true})
   })
 }
 
@@ -51,8 +51,8 @@ exports.removeMany = (req, res) => {
   itemsSchema.deleteMany({_id: {$in: req.body.ids}}, (err, result) => {
     if (err) {
       console.log(err)
-      return res.sendStatus(500)
+      return res.json({err, success: false})
     }
-    res.send(result)
+    res.json({doc: result, success: true})
   })
 }
