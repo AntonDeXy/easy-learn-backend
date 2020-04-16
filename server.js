@@ -12,7 +12,7 @@ const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
 const listsControllers = require('./controllers/list')
 let port = process.env.PORT || 5001
-const router = require('./routes/router')
+const router = require('./routes/index')
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 // app.use(bodyParser.json())
