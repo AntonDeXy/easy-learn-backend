@@ -10,7 +10,7 @@ const UserObjSchema = new Schema(
       require: true,
       unique: true
     },
-    addedCategories: [{type: mongoose.Schema.Types.ObjectId, ref: 'Category' }]
+    addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }]
   },
   { collection: 'users' }
 )

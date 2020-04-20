@@ -2,9 +2,9 @@ const router = require('express').Router()
 const listsControllers = require('../../../controllers/list')
 const usersControllers = require('../../../controllers/users')
 
-router.get('/by-author-id/:authorId/', listsControllers.categoriesByAuthor)
+router.get('/by-author-id/:authorId/', listsControllers.listsByAuthor)
 
-router.get('/by-list-id/:listId/', listsControllers.categoryById)
+router.get('/by-list-id/:listId/', listsControllers.listById)
 
 router.post('/new/', listsControllers.create)
 

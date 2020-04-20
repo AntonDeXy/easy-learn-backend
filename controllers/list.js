@@ -1,7 +1,7 @@
 const listSchema = require('../models/listSchema')
 const mongoose = require('mongoose') 
 
-exports.categoriesByAuthor = (req, res) => {
+exports.listsByAuthor = (req, res) => {
   listSchema
   .find({authorId: req.params.authorId})
   .populate('items')
@@ -14,15 +14,15 @@ exports.categoriesByAuthor = (req, res) => {
   })
 }
 
-exports.categoryById = (req, res) => {
+exports.listById = (req, res) => {
   listSchema
-  .find({_id: req.params.categoryId})
+  .find({_id: req.params.listId})
   .populate('items')
   .exec((err, doc)=> {
-    if (err || !doc) {
+    if (err || !doc || doc.length < 1) {
       return res.json({isExist: false})
     }
-    return res.send({isExist: true, doc})
+    return res.json({isExist: true, list: doc})
   })
 }
 
@@ -55,8 +55,8 @@ exports.create = (req, res) => {
 }
 
 exports.edit = (req, res) => {
-  listSchema.updateMany({ _id: req.params.id}, { $set: req.body }, (err, result) => {
-    if (err) {
+  listSchema.updateMany({ _id: req.params.listId}, { $set: req.body }, (err, result) => {
+    if (err || result.nModified < 1) {
       console.log(err)
       return res.json({success: false})
     }
@@ -65,11 +65,12 @@ exports.edit = (req, res) => {
 }
 
 exports.remove = (req, res) => {
-  listSchema.deleteOne({_id: req.params.id}, (err, result) => {
+  listSchema.deleteOne({_id: req.params.listId}, (err, result) => {
     if (err) {
       console.log(err)
       return res.json({success: false})
     }
-    res.json({success: true})
+    if (result.deletedCount > 0) res.json({success: true})
+    else res.json({success: false})
   })
 }

@@ -4,12 +4,12 @@ const mongoose = require('mongoose')
 exports.removeObjectFromProfile = (req, res) => {
   usersSchema
     .findOneAndUpdate(
-      {userId: req.body.userId},
-      {'$pull': {addedCategories: req.body.categoryId}}
+      {userId: req.params.userId},
+      {'$pull': {addedLists: req.body.listId}}
     )
     .exec((err, doc) => {
-      if (err) return res.send(err)
-      res.sendStatus(200)
+      if (err) return res.json({success: false})
+      res.json({success: true})
     })
 }
 
@@ -19,8 +19,8 @@ exports.createProfile = (req, res) => {
   })
   profile
     .save()
-    .then(result => res.send(result))
-    .catch(err => res.send(err))
+    .then(result => res.json({user: result, success: true}))
+    .catch(error => res.json({error, success: false}))
     // .exec((err, doc) => {
     //   if (err) return res.send(err)
     //   res.sendStatus(200)
@@ -32,11 +32,11 @@ exports.addNewListToProfile = (req, res) => {
   usersSchema
     .findOneAndUpdate(
       {userId: req.body.userId},
-      {'$push': {addedCategories: req.body.categoryId}}
+      {'$push': {addedLists: req.body.listId}}
     )
-    .exec((err, doc) => {
-      if (err) return res.send(err)
-      res.sendStatus(200)
+    .exec((error, doc) => {
+      if (error) return res.json({error, success: false})
+      res.json({success: true})
     })
 }
 
@@ -46,13 +46,13 @@ exports.getProfile = (req, res) => {
       {userId: req.params.userId}
     )
     .populate({
-      path: 'addedCategories',
+      path: 'addedLists',
       populate: {
         path: 'items'
       }
     })
-    .exec((err, doc) => {
-      if (err) return res.send(err)
-      res.send(doc)
+    .exec((error, data) => {
+      if (error || !data) return res.json({error, success: false})
+      res.json({user: data, success: true})
     })
 }

@@ -7,7 +7,7 @@ const cors = require('cors')
 const mongoose = require('mongoose') 
 // on heroku uncomment next line
 // const url = process.env.MONGODB_URI || 'mongodb://antonDexy:1gdy54ff@ds163517.mlab.com:63517/heroku_13pcnz63'
-const url = 'mongodb+srv://podolyananton:bslukY3JgdGVRrDv@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
+const url = 'mongodb+srv://podolyananton:1gdy54ff@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
 const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
 const listsControllers = require('./controllers/list')

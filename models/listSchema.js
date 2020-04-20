@@ -6,6 +6,6 @@ const listSchema = mongoose.Schema({
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
   authorId: String
   // authorId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-}, {collection: 'categoties'})
+}, {collection: 'lists'})
 
 module.exports = mongoose.model('List', listSchema)

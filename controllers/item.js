@@ -22,14 +22,14 @@ exports.create = (req, res) => {
         if (err) {
           return res.json({err, success: false})
         }
-        res.json({doc, success: true})
+        res.json({doc: item, success: true})
       })
     })
 }
 
 exports.edit = (req, res) => {
-  itemsSchema.updateMany({ _id: req.params.id}, { $set: req.body }, (err, result) => {
-    if (err) {
+  itemsSchema.updateMany({ _id: req.params.itemId}, { $set: req.body }, (err, result) => {
+    if (err || result.nModified < 1) {
       console.log(err)
       return res.json({err, success: false})
     }
@@ -38,8 +38,8 @@ exports.edit = (req, res) => {
 }
 
 exports.remove = (req, res) => {
-  itemsSchema.deleteOne({_id: req.params.id}, (err, result) => {
-    if (err) {
+  itemsSchema.deleteOne({_id: req.params.itemId}, (err, result) => {
+    if (err || result.deletedCount < 1) {
       console.log(err)
       return res.json({err, success: false})
     }
