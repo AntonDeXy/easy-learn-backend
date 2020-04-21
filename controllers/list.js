@@ -66,11 +66,10 @@ exports.edit = (req, res) => {
 
 exports.remove = (req, res) => {
   listSchema.deleteOne({_id: req.params.listId}, (err, result) => {
-    if (err) {
+    if (err || result.deletedCount < 1) {
       console.log(err)
       return res.json({success: false})
     }
-    if (result.deletedCount > 0) res.json({success: true})
-    else res.json({success: false})
+    res.json({success: true})
   })
 }

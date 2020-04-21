@@ -4,13 +4,12 @@ const mongoose = require('mongoose')
 exports.notesByAuthor = (req, res) => {
   noteSchema
   .find({authorId: req.params.authorId})
-  // .populate('authorId')
   .exec((err, doc)=> {
     if (err) {
       console.log(err)
-      return res.sendStatus(500)
+      return res.json({success: false})
     }
-    res.send(doc)
+    res.json({data: doc, success: true})
   })
 }
 
@@ -24,27 +23,26 @@ exports.create = (req, res) => {
   })
   note
     .save()
-    .then(result => console.log(result))
-    .catch(err => console.log(err))
-    res.sendStatus(200)
+    .then(result => res.json({note, success: true}))
+    .catch(error => res.json({error, success: false}))
 }
 
 exports.edit = (req, res) => {
-  noteSchema.update({ _id: req.params.id}, { content: req.body.content }, (err, result) => {
-    if (err) {
+  noteSchema.update({ _id: req.params.noteId}, { content: req.body.newContent }, (err, result) => {
+    if (err || result.nModified < 1) {
       console.log(err)
-      return res.sendStatus(500)
+      return res.json({error, success: false})
     }
-    res.send(result)
+    res.json({data: result, success: true})
   })
 }
 
 exports.remove = (req, res) => {
-  noteSchema.deleteOne({_id: req.params.id}, (err, result) => {
+  noteSchema.deleteOne({_id: req.params.noteId}, (err, result) => {
     if (err) {
       console.log(err)
-      return res.sendStatus(500)
+      return res.json({error, success: false})
     }
-    res.sendStatus(200)
+    res.json({success: true})
   })
 }
