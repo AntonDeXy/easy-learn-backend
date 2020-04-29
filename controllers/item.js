@@ -6,16 +6,17 @@ exports.create = (req, res) => {
   request = req.body
   const item = new itemsSchema({
     _id: new mongoose.Types.ObjectId(),
-    word: request.word,
-    translate: request.translate,
-    date: new Date(),
+    word: request.item.word,
+    translate: request.item.translate,
+    audioUrl: request.item.audioUrl,
+    date: new Date()
   })
   item
     .save()
     .then(result => {
       listSchema
       .findOneAndUpdate(
-        {_id: req.body.listId},
+        {_id: request.listId},
         {"$push": {items: result.id}}
       )
       .exec((err,doc) => {
