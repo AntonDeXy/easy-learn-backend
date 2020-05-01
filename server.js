@@ -17,7 +17,7 @@ const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 // app.use(bodyParser.json())
 // app.use(cors())
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost' }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())

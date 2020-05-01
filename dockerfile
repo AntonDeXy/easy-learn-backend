@@ -2,12 +2,12 @@ FROM node:12.16
 
 WORKDIR /usr/source/back
 
-COPY ./package*.json ./
+COPY package.json /usr/source/back/package.json
+
+COPY package-lock.json /usr/source/back/package-lock.json
 
 RUN npm install
 
-COPY . .
+COPY . /usr/source/back
 
-EXPOSE 5001
-
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
