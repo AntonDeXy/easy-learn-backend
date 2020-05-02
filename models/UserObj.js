@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const connection = mongoose.createConnection("mongodb+srv://antondexy:1gdy54ff@cluster0-comih.mongodb.net/myapi")
 
 const UserObjSchema = new Schema(
   {
@@ -10,7 +9,8 @@ const UserObjSchema = new Schema(
       require: true,
       unique: true
     },
-    addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }]
+    addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
+    tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }]
   },
   { collection: 'users' }
 )

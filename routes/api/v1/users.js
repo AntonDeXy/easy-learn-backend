@@ -5,7 +5,9 @@ router.get('/get-profile/:userId', usersControllers.getProfile)
 
 router.put('/remove-list/:userId', usersControllers.removeObjectFromProfile)
 
-router.put('/add-list/:userId', usersControllers.addNewListToProfile)
+router.put('/add-list/', usersControllers.addNewListToProfile)
+
+router.put('/add-test/', usersControllers.addNewTestToProfile)
 
 router.post('/new/', usersControllers.createProfile)
 

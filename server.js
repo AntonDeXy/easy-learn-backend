@@ -15,9 +15,8 @@ let port = process.env.PORT || 5001
 const router = require('./routes/index')
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-// app.use(bodyParser.json())
-// app.use(cors())
-app.use(cors({ origin: 'http://localhost' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
+// app.use(cors({ origin: 'http://localhost' }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
@@ -55,8 +54,6 @@ mongoose.connect(url, {
 mongoose.connection.on('connected', () => {
   console.log('Mongoose is connected')
 })
-
-// mongoose.set('useFindAndModify', false);
 
 app.listen(port, '0.0.0.0', () => {
   console.log("API started")
