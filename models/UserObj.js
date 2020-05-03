@@ -9,8 +9,13 @@ const UserObjSchema = new Schema(
       require: true,
       unique: true
     },
+    email: String,
     addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
-    tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }]
+    tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }],
+    registerDate: {
+      type: Date,
+      default: Date.now()
+    }
   },
   { collection: 'users' }
 )

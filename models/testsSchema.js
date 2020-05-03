@@ -6,6 +6,7 @@ const testsSchema = mongoose.Schema({
   type: String,
   questionsCount: Number,
   rightAnswersCount: Number,
+  listName: String,
   items: [
     {
       value1: String,
@@ -18,7 +19,11 @@ const testsSchema = mongoose.Schema({
         }
       ]
     }
-  ]
+  ],
+  date: {
+    type: Date,
+    default: Date.now()
+  }
 }, {collection: 'tests'})
 
 module.exports = Test = mongoose.model('Test', testsSchema)

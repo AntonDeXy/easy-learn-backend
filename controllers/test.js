@@ -9,8 +9,9 @@ exports.create = (req, res) => {
     type: request.test.type,
     questionsCount: request.test.questionsCount,
     rightAnswersCount: request.test.rightAnswersCount,
+    listName: request.test.listName,
     items: request.test.items,
-    date: new Date()
+    date: Date.now()
   })
   test
     .save()

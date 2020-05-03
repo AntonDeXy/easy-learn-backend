@@ -16,7 +16,8 @@ exports.removeObjectFromProfile = (req, res) => {
 exports.createProfile = (req, res) => {
   const profile = new usersSchema({
     _id: new mongoose.Types.ObjectId(),
-    userId: req.body.userIdFromAuth0
+    userId: req.body.userIdFromAuth0,
+    email: req.body.email
   })
   profile
     .save()
