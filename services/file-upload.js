@@ -3,9 +3,9 @@ const multer = require('multer')
 const multerS3 = require('multer-s3')
 
 aws.config.update({
-  secretAccessKey: '/JVj9sYSAT+kSaBL3CYeVcGEkhsGqQiGODZaCIf0',
-  accessKeyId: 'AKIAJ5PKJ4KNEGXAWFLA',
-  region: 'us-east-2'
+  secretAccessKey: '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',
+  accessKeyId: 'AKIAJQL7MW466X7DJBXA',
+  region: 'us-east-1'
 })
 
 const fileFilter = (req, file, cb) => {
@@ -22,8 +22,8 @@ const upload = multer({
   fileFilter,
   storage: multerS3({
     s3: s3,
-    bucket: 'geek-news-imgs',
-    acl: 'public-read',
+    bucket: 'easy-lern-imgs',
+    ACL: 'public-read',
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },

@@ -6,6 +6,7 @@ router.use('/items', require('./items'))
 router.use('/notes', require('./notes'))
 router.use('/users', require('./users'))
 router.use('/tests', require('./tests'))
+router.use('/image', require('./image-upload'))
 // router.use('/user', jwtCheck, require('./user'))
 
 module.exports = router
