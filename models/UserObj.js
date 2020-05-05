@@ -12,6 +12,10 @@ const UserObjSchema = new Schema(
     email: String,
     addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
     tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }],
+    role: {
+      type: String,
+      default: 'user'
+    },
     registerDate: {
       type: Date,
       default: Date.now()
