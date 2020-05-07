@@ -5,7 +5,7 @@ exports.listsByAuthor = (req, res) => {
   listSchema
   .find({authorId: req.params.authorId})
   .populate('items')
-  .exec((err, doc)=> {
+  .exec((err, doc) => {
     if (err) {
       console.log(err)
       return res.json({success: false})
