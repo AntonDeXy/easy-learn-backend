@@ -9,5 +9,7 @@ router.delete('/remove/:itemId/', itemsControllers.remove)
 
 router.post('/remove-many/', itemsControllers.removeMany)
 
+router.get('/remove-unused-items/', itemsControllers.removeUnusedItems)
+
 module.exports = router
 

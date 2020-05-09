@@ -57,3 +57,48 @@ exports.removeMany = (req, res) => {
     res.json({doc: result, success: true})
   })
 }
+
+exports.removeUnusedItems = (req, res) => {
+  listSchema
+  .find({})
+  .exec(async (err, doc)=> {
+    if (err) {
+      console.log(err)
+      return res.sendStatus(500)
+    }
+    itemsSchema
+    .find({})
+    .exec((err, items) => {
+      let allItemsIds = []
+      items.forEach(item => allItemsIds.push(item._id.toString()))
+      console.log(allItemsIds)
+
+      let usedItemsIds = []
+
+      doc.forEach(list => {
+        list.items.forEach(id => {
+          usedItemsIds.push(id.toString())
+        })
+      })
+
+      let itemsForRemove = []
+
+      allItemsIds.forEach(item => {
+        if (!usedItemsIds.includes(item)) {
+          itemsForRemove.push(item)
+        }
+      })
+
+      console.log(itemsForRemove)
+
+      itemsSchema.deleteMany({_id: {$in: itemsForRemove}}, (err, result) => {
+        if (err) {
+          console.log(err)
+          return res.json({err, success: false})
+        }
+        res.json({doc: result, success: true})
+      })
+   
+    })
+  })
+}
