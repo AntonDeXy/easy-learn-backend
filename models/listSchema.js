@@ -4,7 +4,7 @@ const listSchema = mongoose.Schema({
   _id: mongoose.Schema.ObjectId,
   name: String,
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
-  authorId: String
+  authorId: String,
   // authorId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
 }, {collection: 'lists'})
 

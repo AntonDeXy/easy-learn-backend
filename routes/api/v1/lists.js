@@ -14,6 +14,8 @@ router.delete('/remove/:listId/', listsControllers.remove)
 
 router.post('/add-to-profile/', usersControllers.addNewListToProfile)
 
+router.post('/add-list-to-owns/', listsControllers.addNewListToProfile)
+
 router.post('/remove-from-profile/', usersControllers.removeObjectFromProfile)
 
 module.exports = router
