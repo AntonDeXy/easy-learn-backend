@@ -23,7 +23,7 @@ const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: 'easy-lern-imgs',
-    ACL: 'public-read',
+    acl: 'public-read',
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname });
     },
