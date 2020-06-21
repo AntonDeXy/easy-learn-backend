@@ -7,6 +7,8 @@ router.put('/remove-list/:userId', usersControllers.removeObjectFromProfile)
 
 router.put('/add-list/', usersControllers.addNewListToProfile)
 
+router.put('/change-theme/', usersControllers.changeTheme)
+
 router.put('/add-test/', usersControllers.addNewTestToProfile)
 
 router.post('/new/', usersControllers.createProfile)

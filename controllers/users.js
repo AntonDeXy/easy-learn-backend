@@ -23,7 +23,19 @@ exports.createProfile = (req, res) => {
     .save()
     .then(result => res.json({user: result, success: true}))
     .catch(error => res.json({error, success: false}))
-  }
+}
+
+exports.changeTheme = (req, res) => {
+  usersSchema
+    .findOneAndUpdate(
+      {userId: req.body.userId},
+      {theme: req.body.theme}
+    )
+    .exec((error, doc) => {
+      if (error) return res.json({error, success: false})
+      res.json({success: true})
+    })
+}
 
 exports.addNewTestToProfile = (req, res) => {
   usersSchema
