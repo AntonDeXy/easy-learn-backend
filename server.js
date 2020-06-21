@@ -15,7 +15,10 @@ let port = process.env.PORT || 5001
 const router = require('./routes/index')
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: [
+  'http://localhost:3000',
+  'https://easy-lern.herokuapp.com'
+] }))
 // app.use(cors({ origin: 'http://localhost' }));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
