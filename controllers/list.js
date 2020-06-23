@@ -34,7 +34,6 @@ exports.create = (req, res) => {
     name: request.name,
     items: request.items || [],
     authorId: request.authorId,
-    date: new Date(),
   })
   list
     .save()

@@ -5,7 +5,10 @@ const listSchema = mongoose.Schema({
   name: String,
   items: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Item' }],
   authorId: String,
-  // authorId: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
+  date: {
+    type: Date,
+    default: Date.now()
+  }
 }, {collection: 'lists'})
 
 module.exports = mongoose.model('List', listSchema)

@@ -4,14 +4,22 @@ const Schema = mongoose.Schema
 const UserObjSchema = new Schema(
   {
     _id: mongoose.Schema.ObjectId,
-    userId: {
+    username: {
       type: String,
       require: true,
       unique: true
     },
-    email: String,
-    addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
-    tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }],
+    email: {
+      type: String,
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    isEmailConfirmed: {
+      type: Boolean,
+      default: false
+    },
     theme: {
       type: String,
       default: 'light'
@@ -23,7 +31,9 @@ const UserObjSchema = new Schema(
     registerDate: {
       type: Date,
       default: Date.now()
-    }
+    },
+    addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
+    tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }]
   },
   { collection: 'users' }
 )

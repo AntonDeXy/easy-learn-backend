@@ -1,7 +1,9 @@
 const router = require('express').Router()
 const usersControllers = require('../../../controllers/users')
 
-router.get('/get-profile/:userId', usersControllers.getProfile)
+router.post('/login', usersControllers.login)
+
+router.post('/logout', usersControllers.logout)
 
 router.put('/remove-list/:userId', usersControllers.removeObjectFromProfile)
 
@@ -11,7 +13,9 @@ router.put('/change-theme/', usersControllers.changeTheme)
 
 router.put('/add-test/', usersControllers.addNewTestToProfile)
 
-router.post('/new/', usersControllers.createProfile)
+router.post('/get-new-token', usersControllers.getNewToken)
+
+router.post('/register', usersControllers.register)
 
 module.exports = router
 
