@@ -282,7 +282,7 @@ function generateAccessToken(user) {
 exports.removeObjectFromProfile = (req, res) => {
 	userSchema
 		.findOneAndUpdate(
-			{ userId: req.params.userId },
+			{ _id: req.params.userId },
 			{ $pull: { addedLists: req.body.listId } }
 		)
 		.exec((err, doc) => {
@@ -293,7 +293,7 @@ exports.removeObjectFromProfile = (req, res) => {
 
 exports.changeTheme = (req, res) => {
 	userSchema
-		.findOneAndUpdate({ userId: req.body.userId }, { theme: req.body.theme })
+		.findOneAndUpdate({ _id: req.body.userId }, { theme: req.body.theme })
 		.exec((error, doc) => {
 			if (error) return res.json({ error, success: false })
 			res.json({ success: true })
@@ -303,7 +303,7 @@ exports.changeTheme = (req, res) => {
 exports.addNewTestToProfile = (req, res) => {
 	userSchema
 		.findOneAndUpdate(
-			{ userId: req.body.userId },
+			{ _id: req.body.userId },
 			{ $push: { tests: req.body.testId } }
 		)
 		.exec((error, doc) => {
@@ -315,7 +315,7 @@ exports.addNewTestToProfile = (req, res) => {
 exports.addNewListToProfile = (req, res) => {
 	userSchema
 		.findOneAndUpdate(
-			{ userId: req.body.userId },
+			{ _id: req.body.userId },
 			{ $push: { addedLists: req.body.listId } }
 		)
 		.exec((error, doc) => {
