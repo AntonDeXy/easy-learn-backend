@@ -6,11 +6,12 @@ const jwt = require('jsonwebtoken')
 
 // auth
 exports.register = async (req, res) => {
+	const username = req.body.username.toLowerCase()
 
 	try {
 
     const isNameTaken = await userSchema
-      .findOne({username: req.body.username})
+      .findOne({username: username})
       .exec()
 
     if (isNameTaken) {
@@ -20,7 +21,7 @@ exports.register = async (req, res) => {
       }) 
     }
 
-    if (req.body.username.length === 0) {
+    if (username.length === 0) {
       return res.json({
         success: false,
         msg: 'Username field is require',
@@ -34,7 +35,7 @@ exports.register = async (req, res) => {
       })
     }
 
-    if (req.body.username.length < 3) {
+    if (username.length < 3) {
       return res.json({
         success: false,
         msg: 'Username length must be at least 4 characters',
@@ -51,7 +52,7 @@ exports.register = async (req, res) => {
 		const hashedPassword = await bcrypt.hash(req.body.password, 10)
 		const user = new userSchema({
 			_id: new mongoose.Types.ObjectId(),
-			username: req.body.username,
+			username: username,
 			password: hashedPassword,
 		})
 		user
@@ -75,9 +76,10 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-	console.log(process.env.REFRESH_TOKEN_SECRET)
+	const username = req.body.username.toLowerCase()
+
 	userSchema
-		.findOne({ username: req.body.username })
+		.findOne({ username: username })
 		.populate({
 			path: 'addedLists',
 			populate: {
@@ -133,11 +135,12 @@ exports.getNewToken = async (req, res) => {
 	refreshTokenSchema.findOne({ refreshToken }).then((data) => {
 		if (!data)
 			return res.json({ success: false, msg: 'Refresh token not found' })
-		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, user) => {
 			if (err)
 				return res.json({ success: false, msg: 'Refresh token not found' })
-			const accessToken = generateAccessToken(user)
-			res.json({ success: true, accessToken, user })
+			const newUserData = await userSchema.findOne({_id: user._id}).exec()
+			const accessToken = generateAccessToken(newUserData.toJSON())
+			res.json({ success: true, accessToken, user: newUserData })
 		})
 	})
 }
