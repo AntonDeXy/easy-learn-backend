@@ -32,6 +32,10 @@ const UserObjSchema = new Schema(
       type: Date,
       default: Date.now()
     },
+    language: {
+      type: String,
+      default: 'en'
+    },
     addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
     tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }]
   },

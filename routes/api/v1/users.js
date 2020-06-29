@@ -11,6 +11,8 @@ router.put('/add-list/', usersControllers.addNewListToProfile)
 
 router.put('/change-theme/', usersControllers.changeTheme)
 
+router.put('/change-language/', usersControllers.changeLanguage)
+
 router.put('/add-test/', usersControllers.addNewTestToProfile)
 
 router.post('/get-new-token', usersControllers.getNewToken)

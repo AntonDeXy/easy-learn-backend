@@ -303,6 +303,15 @@ exports.changeTheme = (req, res) => {
 		})
 }
 
+exports.changeLanguage = (req, res) => {
+	userSchema
+		.findOneAndUpdate({ _id: req.body.userId }, { language: req.body.language })
+		.exec((error, doc) => {
+			if (error) return res.json({ error, success: false })
+			res.json({ success: true })
+		})
+}
+
 exports.addNewTestToProfile = (req, res) => {
 	userSchema
 		.findOneAndUpdate(
