@@ -80,12 +80,17 @@ exports.login = async (req, res) => {
 
 	userSchema
 		.findOne({ username: username })
-		.populate({
-			path: 'addedLists',
-			populate: {
-				path: 'items',
+		.populate([
+			{
+				path: 'tests'
 			},
-		})
+			{
+				path: 'addedLists',
+				populate: {
+					path: 'items'
+				}
+			}
+		])
 		.then(async (user) => {
 			if (user == null) {
 				return res.json({ success: false, msg: 'Cannot find user' })
@@ -138,7 +143,21 @@ exports.getNewToken = async (req, res) => {
 		jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, async (err, user) => {
 			if (err)
 				return res.json({ success: false, msg: 'Refresh token not found' })
-			const newUserData = await userSchema.findOne({_id: user._id}).exec()
+			const newUserData = await 
+				userSchema
+				.findOne({_id: user._id})
+				.populate([
+					{
+						path: 'tests'
+					},
+					{
+						path: 'addedLists',
+						populate: {
+							path: 'items'
+						}
+					}
+				])
+				.exec()
 			const accessToken = generateAccessToken(newUserData.toJSON())
 			res.json({ success: true, accessToken, user: newUserData })
 		})
