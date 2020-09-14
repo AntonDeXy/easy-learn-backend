@@ -13,6 +13,8 @@ router.put('/change-theme/', usersControllers.changeTheme)
 
 router.put('/change-language/', usersControllers.changeLanguage)
 
+router.put('/change-default-translates-language/', usersControllers.changeDefaultTranslatesLanguage)
+
 router.put('/add-test/', usersControllers.addNewTestToProfile)
 
 router.post('/get-new-token', usersControllers.getNewToken)

@@ -7,19 +7,20 @@ const testsSchema = mongoose.Schema({
   questionsCount: Number,
   rightAnswersCount: Number,
   listName: String,
-  items: [
-    {
-      value1: String,
-      rightAnswer: String,
-      usersAnswer: String,
-      variants: [
-        {
-          value: String,
-          key: Number
-        }
-      ]
-    }
-  ],
+  items: {type: mongoose.Schema.Types.ObjectId, ref: 'TestItemsSchema' },
+  // items: [
+  //   {
+  //     value1: String,
+  //     rightAnswer: String,
+  //     usersAnswer: String,
+  //     variants: [
+  //       {
+  //         value: String,
+  //         key: Number
+  //       }
+  //     ]
+  //   }
+  // ],
   date: {
     type: Date,
     default: Date.now()

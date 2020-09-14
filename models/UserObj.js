@@ -36,6 +36,10 @@ const UserObjSchema = new Schema(
       type: String,
       default: 'en'
     },
+    defaultTranslatesLanguage: {
+      type: String,
+      default: 'ru'
+    },
     addedLists: [{type: mongoose.Schema.Types.ObjectId, ref: 'List' }],
     tests: [{type: mongoose.Schema.Types.ObjectId, ref: 'Test' }]
   },

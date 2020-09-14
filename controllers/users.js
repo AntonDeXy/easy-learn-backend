@@ -82,7 +82,10 @@ exports.login = async (req, res) => {
 		.findOne({ username: username })
 		.populate([
 			{
-				path: 'tests'
+				path: 'tests',
+				// populate: {
+				// 	path: 'items'
+				// }
 			},
 			{
 				path: 'addedLists',
@@ -325,6 +328,15 @@ exports.changeTheme = (req, res) => {
 exports.changeLanguage = (req, res) => {
 	userSchema
 		.findOneAndUpdate({ _id: req.body.userId }, { language: req.body.language })
+		.exec((error, doc) => {
+			if (error) return res.json({ error, success: false })
+			res.json({ success: true })
+		})
+}
+
+exports.changeDefaultTranslatesLanguage = (req, res) => {
+	userSchema
+		.findOneAndUpdate({ _id: req.body.userId }, { defaultTranslatesLanguage: req.body.defaultTranslatesLanguage })
 		.exec((error, doc) => {
 			if (error) return res.json({ error, success: false })
 			res.json({ success: true })
