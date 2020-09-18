@@ -4,10 +4,12 @@ const mongoose = require('mongoose')
 
 exports.create = (req, res) => {
   request = req.body
+  
   const item = new itemsSchema({
     _id: new mongoose.Types.ObjectId(),
     word: request.item.word,
     translate: request.item.translate,
+    transcription: request.item.transcription,
     audioUrl: request.item.audioUrl,
     date: new Date()
   })
