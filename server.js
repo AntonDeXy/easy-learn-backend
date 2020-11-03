@@ -7,12 +7,13 @@ var ObjectID = require('mongodb').ObjectId
 const app = express()
 const cors = require('cors')
 const mongoose = require('mongoose') 
-const url = 'mongodb+srv://podolyananton:1gdy54ff@cluster0-s6ujg.mongodb.net/test?retryWrites=true&w=majority'
 const articleSchema = require('./models/itemsSchema')
 const cookieParser = require('cookie-parser')
 const listsControllers = require('./controllers/list')
-let port = process.env.PORT || 5001
 const router = require('./routes/index')
+
+let port = process.env.PORT || 5001
+const url = process.env.MONGODB_URI
 
 app.use(cors({ origin: [
   'http://localhost:3000',
