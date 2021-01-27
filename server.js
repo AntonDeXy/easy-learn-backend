@@ -15,10 +15,7 @@ const router = require('./routes/index')
 let port = process.env.PORT || 5001
 const url = process.env.MONGODB_URI
 
-app.use(cors({ origin: [
-  'http://localhost:3000',
-  'https://easy-lern.herokuapp.com'
-] }))
+app.use(cors('*'))
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))

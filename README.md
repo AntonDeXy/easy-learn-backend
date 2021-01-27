@@ -1,1 +1,1 @@
-# easy-lern-backend
+# easy-learn-backend

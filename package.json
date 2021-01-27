@@ -1,5 +1,5 @@
 {
-  "name": "easy-lern-backend",
+  "name": "easy-learn-backend",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AntonDeXy/easy-lern-backend.git"
+    "url": "git+https://github.com/AntonDeXy/easy-learn-backend.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AntonDeXy/easy-lern-backend/issues"
+    "url": "https://github.com/AntonDeXy/easy-learn-backend/issues"
   },
-  "homepage": "https://github.com/AntonDeXy/easy-lern-backend#readme",
+  "homepage": "https://github.com/AntonDeXy/easy-learn-backend#readme",
   "dependencies": {
     "aws-sdk": "^2.669.0",
     "bcrypt": "^5.0.0",
